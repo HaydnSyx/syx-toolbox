@@ -12,4 +12,25 @@
     <artifactId>tool-base</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <dependencies>
+        <!-- 代理相关 -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.14.12</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.30.2-GA</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>6.1.4</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
