@@ -1,18 +1,15 @@
-package cn.syx.toolbox.base.proxy;
+package cn.syx.toolbox.base.proxy.impl;
 
+import cn.syx.toolbox.base.proxy.IProxy;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.framework.ProxyFactory;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public class SpringProxy {
+public class SpringProxy implements IProxy {
 
-    private SpringProxy() {
-        throw new UnsupportedOperationException();
-    }
-
-    public static Object getProxy(Object target, Consumer<Object> before, BiConsumer<Object, Object> after) {
+    public Object generateProxy(Object target, Consumer<Object> before, BiConsumer<Object, Object> after) {
         ProxyFactory pf = new ProxyFactory(target);
         pf.addAdvice((MethodInterceptor) method -> {
             before.accept(method.getArguments());

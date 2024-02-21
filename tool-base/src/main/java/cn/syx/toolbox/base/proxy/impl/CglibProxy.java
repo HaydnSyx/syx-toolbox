@@ -1,18 +1,15 @@
-package cn.syx.toolbox.base.proxy;
+package cn.syx.toolbox.base.proxy.impl;
 
+import cn.syx.toolbox.base.proxy.IProxy;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public class CglibProxy {
+public class CglibProxy implements IProxy {
 
-    private CglibProxy() {
-        throw new UnsupportedOperationException();
-    }
-
-    public static Object getProxy(Object target, Consumer<Object> before, BiConsumer<Object, Object> after) {
+    public Object generateProxy(Object target, Consumer<Object> before, BiConsumer<Object, Object> after) {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(target.getClass());
         enhancer.setCallback((MethodInterceptor) (o, method, args, methodProxy) -> {
