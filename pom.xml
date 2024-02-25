@@ -16,6 +16,7 @@
     <modules>
         <module>tool-base</module>
         <module>tool-log</module>
+        <module>tool-gray</module>
     </modules>
 
     <properties>
