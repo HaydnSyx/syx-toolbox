@@ -16,5 +16,31 @@ public class GrayTask {
 
     private int denominator = 10000;
 
+    public String getTaskGroup() {
+        return taskGroup;
+    }
 
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public String getTaskDesc() {
+        return taskDesc;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public boolean isTaskSwitch() {
+        return taskSwitch;
+    }
+
+    public int getNumerator() {
+        return numerator;
+    }
+
+    public int getDenominator() {
+        return denominator;
+    }
 }

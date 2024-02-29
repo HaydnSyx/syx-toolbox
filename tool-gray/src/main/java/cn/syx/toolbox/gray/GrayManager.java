@@ -50,7 +50,7 @@ public class GrayManager {
     }
 
     // 返回指定任务
-    public GrayTask getTasks(String taskGroup, String taskId) {
+    public GrayTask getTask(String taskGroup, String taskId) {
         return null;
     }
 }
