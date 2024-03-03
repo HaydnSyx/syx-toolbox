@@ -1,14 +1,12 @@
 package cn.syx.toolbox.gray.option;
 
-import cn.syx.toolbox.gray.strategy.option.ILoadTaskOption;
-
 public class GrayOption {
 
     private boolean delayLoad;
 
-    private ILoadTaskOption loadTaskOption;
+    private TaskLoaderOption loadTaskOption;
 
-    public ILoadTaskOption getLoadTaskOption() {
+    public TaskLoaderOption getLoadTaskOption() {
         return loadTaskOption;
     }
 

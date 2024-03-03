@@ -1,12 +1,24 @@
 package cn.syx.toolbox.gray.domain;
 
-public class GrayRequest {
+import cn.syx.toolbox.gray.key.GrayKey;
+
+public class GrayRequest implements GrayIdentity {
 
     private String taskGroup;
 
     private String taskId;
 
-    private String key;
+    private GrayKey<?> key;
+
+    private GrayKey<?> whiteBlackKey;
+
+    private GrayRequest() {
+    }
+
+    @Override
+    public String identity() {
+        return String.format("%s_%s", taskGroup, taskId);
+    }
 
     public String getTaskGroup() {
         return taskGroup;
@@ -16,7 +28,11 @@ public class GrayRequest {
         return taskId;
     }
 
-    public String getKey() {
+    public GrayKey<?> getKey() {
         return key;
+    }
+
+    public GrayKey<?> getWhiteBlackKey() {
+        return this.whiteBlackKey;
     }
 }
