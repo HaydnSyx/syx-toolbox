@@ -4,6 +4,7 @@ import cn.syx.toolbox.base.CollectionTool;
 import cn.syx.toolbox.base.StringTool;
 import cn.syx.toolbox.gray.domain.GrayTaskConfig;
 import cn.syx.toolbox.gray.domain.GrayTaskHolder;
+import cn.syx.toolbox.gray.option.TaskLoaderOption;
 import cn.syx.toolbox.gray.option.loader.FileTaskLoaderOption;
 import com.alibaba.fastjson2.JSON;
 
@@ -20,17 +21,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class FileTaskLoader extends AbstractSchedulerTaskLoader {
+public class FileTaskLoader extends AbstractSchedulerTaskLoader<FileTaskLoaderOption> {
 
-    private final String filePath;
-    private final String fileType;
+    private String filePath;
+    private String fileType;
 
-    private final String fileSuffix;
+    private String fileSuffix;
 
-    public FileTaskLoader(FileTaskLoaderOption taskOption) {
+    public FileTaskLoader() {
         super();
-        this.filePath = taskOption.getFilePath();
-        this.fileType = taskOption.getFileType();
+    }
+
+    @Override
+    public void parseOption(FileTaskLoaderOption option) {
+        this.filePath = option.getFilePath();
+        this.fileType = option.getFileType();
         this.fileSuffix = "." + fileType;
     }
 

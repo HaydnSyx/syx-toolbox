@@ -1,9 +1,5 @@
 package cn.syx.toolbox.gray.option.loader;
 
-import cn.syx.toolbox.gray.loader.TaskLoader;
-import cn.syx.toolbox.gray.loader.impl.MysqlTaskLoader;
-import cn.syx.toolbox.gray.option.TaskLoaderOption;
-
 public class MysqlTaskLoaderOption extends CommonTaskLoaderOption {
 
     private String url;

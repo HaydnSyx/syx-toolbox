@@ -28,6 +28,14 @@ public class GrayTaskHolder {
         TASK_MAP = new HashMap<>();
     }
 
+    public List<GrayTaskConfig> getTasksByGroup(String taskGroup) {
+        return GROUP_TASK_MAP.get(taskGroup);
+    }
+
+    public GrayTaskConfig getTask(String identity) {
+        return TASK_MAP.get(identity);
+    }
+
     public void updateTask(List<GrayTaskConfig> configs) {
         if (CollectionTool.isEmpty(configs)) {
             return;
@@ -40,5 +48,9 @@ public class GrayTaskHolder {
             String identity = e.identity();
             TASK_MAP.put(identity, e);
         });
+    }
+
+    public GrayMatcher getMatcher(String identity) {
+        return MATCHER_MAP.get(identity);
     }
 }
