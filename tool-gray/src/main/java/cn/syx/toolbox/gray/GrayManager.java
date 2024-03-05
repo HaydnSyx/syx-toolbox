@@ -1,5 +1,6 @@
 package cn.syx.toolbox.gray;
 
+import cn.syx.toolbox.base.StringTool;
 import cn.syx.toolbox.gray.domain.GrayTaskConfig;
 import cn.syx.toolbox.gray.domain.GrayTaskHolder;
 import cn.syx.toolbox.gray.loader.TaskLoader;
@@ -7,6 +8,7 @@ import cn.syx.toolbox.gray.matcher.GrayMatcher;
 import cn.syx.toolbox.gray.option.GrayOption;
 
 import java.util.List;
+import java.util.Map;
 
 public class GrayManager {
 
@@ -38,15 +40,24 @@ public class GrayManager {
             // 创建任务工厂
             GrayFactory factory = GrayFactory.getInstance();
 
-            // todo 根据配置使用工厂创建出解析器
-
+            // 根据配置使用工厂创建出解析器
+            GrayMatcher commonMatcher = factory.crateGrayMatcher(option.getCommonMatcherCls());
+            holder.addMatcher(null, commonMatcher);
 
             // 根据配置使用工厂创建出任务加载器
             TaskLoader taskLoader = factory.crateTaskLoader(option.getLoadTaskOption());
 
             // 使用工厂创建出所有匹配器
+            Map<String, Class<? extends GrayMatcher>> matcherClassMap = option.getMatcherClsMap();
+            matcherClassMap.forEach((k, v) -> {
+                if (StringTool.isBlank(k)) {
+                    return;
+                }
 
-            // 任务与匹配器封装到holder中国呢
+                GrayMatcher matcher = factory.crateGrayMatcher(v);
+                // 任务与匹配器封装到holder中国呢
+                holder.addMatcher(k, matcher);
+            });
 
             // 启动加载器（加载器内部处理推或拉的动作）
             taskLoader.start(holder);

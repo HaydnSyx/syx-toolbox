@@ -2,15 +2,16 @@ package cn.syx.toolbox.gray.loader.impl;
 
 import cn.syx.toolbox.gray.domain.GrayTaskHolder;
 import cn.syx.toolbox.gray.loader.TaskLoader;
-import cn.syx.toolbox.gray.option.TaskLoaderOption;
+import cn.syx.toolbox.gray.option.loader.SchedulerTaskLoaderOption;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-public abstract class AbstractSchedulerTaskLoader<Op extends TaskLoaderOption> implements TaskLoader<Op> {
+public abstract class AbstractSchedulerTaskLoader<Op extends SchedulerTaskLoaderOption> implements TaskLoader<Op> {
 
     private final ScheduledExecutorService executor;
+
+    private Op option;
 
     private volatile boolean inited;
 
@@ -19,6 +20,12 @@ public abstract class AbstractSchedulerTaskLoader<Op extends TaskLoaderOption> i
     }
 
     public abstract void syncTaskConfig(GrayTaskHolder holder);
+
+
+    @Override
+    public void parseOption(Op option) {
+        this.option = option;
+    }
 
     @Override
     public void start(GrayTaskHolder holder) {
@@ -30,6 +37,6 @@ public abstract class AbstractSchedulerTaskLoader<Op extends TaskLoaderOption> i
         executor.scheduleAtFixedRate(() -> {
             // 加载任务
             syncTaskConfig(holder);
-        }, 1, 1, TimeUnit.SECONDS);
+        }, option.getInitialDelay(), option.getPeriod(), option.getTimeUnit());
     }
 }

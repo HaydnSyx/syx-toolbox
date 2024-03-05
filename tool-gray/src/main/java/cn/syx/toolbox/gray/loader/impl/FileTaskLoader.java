@@ -4,9 +4,8 @@ import cn.syx.toolbox.base.CollectionTool;
 import cn.syx.toolbox.base.StringTool;
 import cn.syx.toolbox.gray.domain.GrayTaskConfig;
 import cn.syx.toolbox.gray.domain.GrayTaskHolder;
-import cn.syx.toolbox.gray.option.TaskLoaderOption;
 import cn.syx.toolbox.gray.option.loader.FileTaskLoaderOption;
-import com.alibaba.fastjson2.JSON;
+import cn.syx.toolbox.gray.resolver.TaskResolver;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,15 +27,19 @@ public class FileTaskLoader extends AbstractSchedulerTaskLoader<FileTaskLoaderOp
 
     private String fileSuffix;
 
+    private TaskResolver resolver;
+
     public FileTaskLoader() {
         super();
     }
 
     @Override
     public void parseOption(FileTaskLoaderOption option) {
+        super.parseOption(option);
         this.filePath = option.getFilePath();
         this.fileType = option.getFileType();
         this.fileSuffix = "." + fileType;
+        this.resolver = option.getTaskResolver();
     }
 
     @Override
@@ -56,7 +59,7 @@ public class FileTaskLoader extends AbstractSchedulerTaskLoader<FileTaskLoaderOp
             }
 
             // 生成灰度任务
-            GrayTaskConfig taskConfig = JSON.parseObject(content, GrayTaskConfig.class);
+            GrayTaskConfig taskConfig = resolver.parseTaskContent(content);
             taskConfig.setTaskGroup(file.getName().split("\\.")[0]);
             configs.add(taskConfig);
         }
