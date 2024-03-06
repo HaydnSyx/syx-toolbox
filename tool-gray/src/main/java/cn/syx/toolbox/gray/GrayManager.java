@@ -9,6 +9,7 @@ import cn.syx.toolbox.gray.option.GrayOption;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class GrayManager {
 
@@ -49,7 +50,7 @@ public class GrayManager {
 
             // 使用工厂创建出所有匹配器
             Map<String, Class<? extends GrayMatcher>> matcherClassMap = option.getMatcherClsMap();
-            matcherClassMap.forEach((k, v) -> {
+            Optional.ofNullable(matcherClassMap).ifPresent(m -> m.forEach((k, v) -> {
                 if (StringTool.isBlank(k)) {
                     return;
                 }
@@ -57,7 +58,8 @@ public class GrayManager {
                 GrayMatcher matcher = factory.crateGrayMatcher(v);
                 // 任务与匹配器封装到holder中国呢
                 holder.addMatcher(k, matcher);
-            });
+            }));
+
 
             // 启动加载器（加载器内部处理推或拉的动作）
             taskLoader.start(holder);

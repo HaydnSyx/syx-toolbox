@@ -1,6 +1,7 @@
 package cn.syx.toolbox.gray.loader.impl;
 
 import cn.syx.toolbox.base.CollectionTool;
+import cn.syx.toolbox.base.FileTool;
 import cn.syx.toolbox.base.StringTool;
 import cn.syx.toolbox.gray.domain.GrayTaskConfig;
 import cn.syx.toolbox.gray.domain.GrayTaskHolder;
@@ -53,7 +54,7 @@ public class FileTaskLoader extends AbstractSchedulerTaskLoader<FileTaskLoaderOp
         List<GrayTaskConfig> configs = new ArrayList<>(files.size());
         for (File file : files) {
             // 解析文件内容
-            String content = readFileContent(file);
+            String content = FileTool.readFileContent(file);
             if (StringTool.isBlank(content)) {
                 continue;
             }
@@ -75,20 +76,6 @@ public class FileTaskLoader extends AbstractSchedulerTaskLoader<FileTaskLoaderOp
                     .collect(Collectors.toList());
         } catch (IOException e) {
             return Collections.emptyList();
-        }
-    }
-
-    // 读取文件内容
-    public String readFileContent(File file) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();
-        } catch (IOException e) {
-            return "";
         }
     }
 
