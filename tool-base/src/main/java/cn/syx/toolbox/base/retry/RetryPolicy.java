@@ -7,15 +7,17 @@ import java.util.concurrent.TimeUnit;
 
 public class RetryPolicy {
 
+    public static final RetryPolicy DEFAULT = RetryPolicy.builder().build();
+
     private int retryNum;
 
     private long intervalTime;
 
     private TimeUnit timeUnit;
 
-    private Throwable retryOnThrow;
+    private Class<? extends Throwable> retryOnThrow;
 
-    private Throwable degradeOnThrow;
+    private Class<? extends Throwable> degradeOnThrow;
 
     private RetryPolicy() {
     }
@@ -30,9 +32,9 @@ public class RetryPolicy {
         private long intervalTime = 50;
         private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
 
-        private Throwable retryOnThrow = new RetryException();
+        private Class<? extends Throwable> retryOnThrow = RetryException.class;
 
-        private Throwable degradeOnThrow;
+        private Class<? extends Throwable> degradeOnThrow;
 
         public Builder retryNum(int retryNum) {
             this.retryNum = retryNum;
@@ -49,12 +51,12 @@ public class RetryPolicy {
             return this;
         }
 
-        public Builder retryOnThrow(Throwable retryOnThrow) {
+        public Builder retryOnThrow(Class<? extends Throwable> retryOnThrow) {
             this.retryOnThrow = retryOnThrow;
             return this;
         }
 
-        public Builder degradeOnThrow(Throwable degradeOnThrow) {
+        public Builder degradeOnThrow(Class<? extends Throwable> degradeOnThrow) {
             this.degradeOnThrow = degradeOnThrow;
             return this;
         }
@@ -83,10 +85,10 @@ public class RetryPolicy {
     }
 
     public boolean isRetryOnThrow(Throwable throwable) {
-        return Objects.nonNull(this.retryOnThrow) && retryOnThrow.getClass().isInstance(throwable);
+        return Objects.nonNull(this.retryOnThrow) && retryOnThrow.isInstance(throwable);
     }
 
     public boolean isDegradeOnThrow(Throwable throwable) {
-        return Objects.nonNull(this.degradeOnThrow) && degradeOnThrow.getClass().isInstance(throwable);
+        return Objects.nonNull(this.degradeOnThrow) && degradeOnThrow.isInstance(throwable);
     }
 }

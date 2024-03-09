@@ -17,11 +17,11 @@ public class RetryTool {
     }
 
     public static <T> T execute(Supplier<T> retryExecute) {
-        return execute(RetryPolicy.builder().build(), retryExecute, () -> null);
+        return execute(RetryPolicy.DEFAULT, retryExecute, () -> null);
     }
 
-    public static <T> T execute(Supplier<T> retryExecute, Supplier<T> recoveryExecute) {
-        return execute(RetryPolicy.builder().build(), retryExecute, recoveryExecute);
+    public static <T> T execute(Supplier<T> retryExecute, Supplier<T> degradeExecute) {
+        return execute(RetryPolicy.DEFAULT, retryExecute, degradeExecute);
     }
 
     public static <T> T execute(RetryPolicy policy, Supplier<T> retryExecute, Supplier<T> degradeExecute) {
@@ -43,8 +43,11 @@ public class RetryTool {
                     ThreadTool.sleep(policy.getIntervalTime(), policy.getTimeUnit());
                 }
                 // 降级处理
-                else if (policy.isDegradeOnThrow(e) && Objects.nonNull(degradeExecute)) {
-                    return degradeExecute.get();
+                else if (policy.isDegradeOnThrow(e)) {
+                    if (Objects.nonNull(degradeExecute)) {
+                        return degradeExecute.get();
+                    }
+                    return null;
                 }
                 // 抛出异常
                 else {
@@ -52,6 +55,10 @@ public class RetryTool {
                 }
             }
         } while (retryNum-- > 0);
+
+        if (Objects.nonNull(degradeExecute)) {
+            return degradeExecute.get();
+        }
 
         return null;
     }
