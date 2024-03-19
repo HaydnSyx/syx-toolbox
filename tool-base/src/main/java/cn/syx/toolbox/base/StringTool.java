@@ -49,4 +49,18 @@ public class StringTool {
     public static boolean isNotBlank(final CharSequence cs) {
         return !isBlank(cs);
     }
+
+    /**
+     * 判断字符串是否为数字类型
+     *
+     * @param cs 目标字符串
+     * @return boolean 是否为数字类型。true：是；false：否
+     */
+    public static boolean isNumberType(final CharSequence cs) {
+        if (isBlank(cs)) {
+            return false;
+        }
+
+        return cs.chars().allMatch(Character::isDigit);
+    }
 }
