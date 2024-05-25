@@ -17,6 +17,9 @@
         <module>tool-base</module>
         <module>tool-log</module>
         <module>tool-gray</module>
+        <module>tool-proxy</module>
+        <module>tool-experiment</module>
+        <module>tool-strategy</module>
     </modules>
 
     <properties>
@@ -24,7 +27,10 @@
         <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
 
         <!-- versions -->
-        <compile.version>8</compile.version>
+        <compile.version>17</compile.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+
         <junit.version>5.10.2</junit.version>
         <mockito.version>5.10.0</mockito.version>
         <powermock.version>2.0.9</powermock.version>

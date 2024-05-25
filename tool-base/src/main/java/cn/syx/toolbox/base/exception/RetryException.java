@@ -1,5 +1,10 @@
 package cn.syx.toolbox.base.exception;
 
+/**
+ * 重试异常类
+ *
+ * @author syx
+ */
 public class RetryException extends RuntimeException {
 
     public RetryException() {

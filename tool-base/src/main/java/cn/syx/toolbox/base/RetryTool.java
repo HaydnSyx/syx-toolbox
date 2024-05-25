@@ -16,14 +16,27 @@ public class RetryTool {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * 按照默认策略执行重试, 命中指定异常后后执行降级方法
+     * 重试次数默认3次(含原有,即1+2), 重试间隔默认50ms, 重试异常默认RetryException, 降级异常默认不处理
+     * 重试次数最小值为1
+     *
+     * @param retryExecute 方法执行体
+     * @return T 执行结果
+     */
     public static <T> T execute(Supplier<T> retryExecute) {
         return execute(RetryPolicy.builder().build(), retryExecute, () -> null);
     }
 
-    public static <T> T execute(Supplier<T> retryExecute, Supplier<T> recoveryExecute) {
-        return execute(RetryPolicy.builder().build(), retryExecute, recoveryExecute);
-    }
-
+    /**
+     * 按照指定策略执行重试, 命中指定异常后后执行降级方法
+     * 重试间隔\重试次数\重试异常\降级异常 由策略决定
+     *
+     * @param policy 重试策略
+     * @param retryExecute 方法执行体
+     * @param degradeExecute 降级执行体
+     * @return T 执行结果
+     */
     public static <T> T execute(RetryPolicy policy, Supplier<T> retryExecute, Supplier<T> degradeExecute) {
         if (Objects.isNull(retryExecute)) {
             return null;

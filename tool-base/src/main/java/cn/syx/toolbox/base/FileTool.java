@@ -15,7 +15,7 @@ public class FileTool {
     }
 
     /**
-     * 从资源位置获取文件内容
+     * 从资源指定位置获取文件内容, 不存在则返回null
      *
      * @param cls      类对应的资源目录
      * @param filePath 资源目录下文件位置
@@ -26,7 +26,7 @@ public class FileTool {
             return null;
         }
 
-        try (InputStream stream = cls.getResourceAsStream(filePath)) {
+        try (InputStream stream = cls.getClassLoader().getResourceAsStream(filePath)) {
             if (stream == null) {
                 return null;
             }
@@ -37,6 +37,12 @@ public class FileTool {
         }
     }
 
+    /**
+     * 从文件中获取文件内容, 不存在则返回null
+     *
+     * @param file      文件
+     * @return String 文件内容
+     */
     public static String readFileContent(File file) {
         if (Objects.isNull(file) || !file.exists() || !file.isFile()) {
             return null;
@@ -54,6 +60,12 @@ public class FileTool {
         }
     }
 
+    /**
+     * 从流中获取内容, 不存在则返回null
+     *
+     * @param stream  文件流
+     * @return String 文件内容
+     */
     public static String readStreamContent(InputStream stream) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
             StringBuilder sb = new StringBuilder();

@@ -11,6 +11,11 @@ public class ConsoleTool {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * 在控制台输出指定信息
+     *
+     * @param msg 输出信息
+     */
     public static void println(String msg) {
         LocalDateTime now = LocalDateTime.now();
         System.out.printf("[%s] - %s%n", now.format(formatter), msg);

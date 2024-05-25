@@ -9,10 +9,19 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tool-base</artifactId>
+    <artifactId>tool-strategy</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <toolbox.version>0.0.1-SNAPSHOT</toolbox.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>cn.syx.toolbox</groupId>
+            <artifactId>tool-base</artifactId>
+            <version>${toolbox.version}</version>
+        </dependency>
     </dependencies>
 </project>
