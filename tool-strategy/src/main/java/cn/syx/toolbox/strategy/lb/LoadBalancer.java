@@ -4,7 +4,5 @@ import java.util.List;
 
 public interface LoadBalancer<T> {
 
-    String type();
-
     T choose(List<T> instances);
 }

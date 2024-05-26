@@ -11,11 +11,6 @@ public class RoundRibbonLoadBalancer<T> implements LoadBalancer<T> {
     private final AtomicInteger index = new AtomicInteger(0);
 
     @Override
-    public String type() {
-        return RoundRibbonLoadBalancer.class.getSimpleName();
-    }
-
-    @Override
     public T choose(List<T> instances) {
         if (Objects.isNull(instances) || instances.isEmpty()) {
             return null;
