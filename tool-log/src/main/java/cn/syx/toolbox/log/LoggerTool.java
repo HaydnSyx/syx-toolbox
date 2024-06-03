@@ -1,5 +1,6 @@
 package cn.syx.toolbox.log;
 
+import cn.syx.toolbox.log.options.AsyncLogOption;
 import cn.syx.toolbox.log.options.LogOption;
 import org.slf4j.Logger;
 
@@ -11,19 +12,15 @@ public class LoggerTool {
         return Objects.nonNull(LogbackLoggerFactory.getLogger(name));
     }
 
+    public static Logger buildLogger(String name, LogOption option) {
+        return LogbackLoggerFactory.build(name, option);
+    }
+
+    public static Logger buildLogger(String name, AsyncLogOption option) {
+        return LogbackLoggerFactory.build(name, option);
+    }
+
     public static Logger getLogger(String name) {
         return LogbackLoggerFactory.getLogger(name);
-    }
-
-    public static Logger getOrBuildSyncLogger(String name) {
-        return LogbackLoggerFactory.getOrBuildLogger(name, false);
-    }
-
-    public static Logger getOrBuildASyncLogger(String name) {
-        return LogbackLoggerFactory.getOrBuildLogger(name, true);
-    }
-
-    public static Logger buildLogger(String name, LogOption option) {
-        return LogbackLoggerFactory.getOrBuildLogger(name, option);
     }
 }

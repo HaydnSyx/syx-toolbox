@@ -4,8 +4,6 @@ import ch.qos.logback.classic.Level;
 
 public class LogOption {
 
-    public static final LogOption DEFAULT_OPTION = LogOption.builder().build();
-
     /**
      * 日志等级
      */
@@ -86,60 +84,63 @@ public class LogOption {
         return pattern;
     }
 
-    public static class Builder {
+    public static class Builder<T extends Builder<T>> {
         private Level level = Level.INFO;
         private String filePath;
         private String fileName;
         private String fileNamePattern = ".%d{yyyy-MM-dd}.%i";
-        private String maxFileSize = "1G";
-        private String totalSizeCap = "5G";
+        private String maxFileSize = "1GB";
+        private String totalSizeCap = "5GB";
         private int maxHistory = 5;
-        private String pattern = "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} %msg%n";
+        private String pattern = "%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] %C#%M:%L %msg%n";
 
         public Builder() {
         }
 
-        public Builder level(Level level) {
+        public T level(Level level) {
             this.level = level;
-            return this;
+            return (T) this;
         }
 
-        public Builder filePath(String filePath) {
-            if (filePath.endsWith("/")) {
-                filePath = filePath.substring(0, filePath.length() - 1);
+        public T filePath(String filePath) {
+            if (!filePath.endsWith("/")) {
+                filePath = filePath + "/";
             }
             this.filePath = filePath;
-            return this;
+            return (T) this;
         }
 
-        public Builder fileName(String fileName) {
+        public T fileName(String fileName) {
+            if (!fileName.endsWith(".log") && !fileName.endsWith(".LOG")) {
+                fileName = fileName + ".log";
+            }
             this.fileName = fileName;
-            return this;
+            return (T) this;
         }
 
-        public Builder fileNamePattern(String fileNamePattern) {
+        public T fileNamePattern(String fileNamePattern) {
             this.fileNamePattern = fileNamePattern;
-            return this;
+            return (T) this;
         }
 
-        public Builder maxFileSize(String maxFileSize) {
+        public T maxFileSize(String maxFileSize) {
             this.maxFileSize = maxFileSize;
-            return this;
+            return (T) this;
         }
 
-        public Builder totalSizeCap(String totalSizeCap) {
+        public T totalSizeCap(String totalSizeCap) {
             this.totalSizeCap = totalSizeCap;
-            return this;
+            return (T) this;
         }
 
-        public Builder maxHistory(int maxHistory) {
+        public T maxHistory(int maxHistory) {
             this.maxHistory = maxHistory;
-            return this;
+            return (T) this;
         }
 
-        public Builder pattern(String pattern) {
+        public T pattern(String pattern) {
             this.pattern = pattern;
-            return this;
+            return (T) this;
         }
 
         public LogOption build() {
