@@ -32,6 +32,10 @@ public class GrayOption {
         return matcherClsMap;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     private GrayOption() {
     }
 

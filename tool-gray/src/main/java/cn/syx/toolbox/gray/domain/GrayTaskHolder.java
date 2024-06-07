@@ -40,7 +40,7 @@ public class GrayTaskHolder {
         return TASK_MAP.get(identity);
     }
 
-    public void updateTask(List<GrayTaskConfig> configs) {
+    public void updateTaskConfigInfo(List<GrayTaskConfig> configs) {
         if (CollectionTool.isEmpty(configs)) {
             return;
         }
@@ -62,8 +62,12 @@ public class GrayTaskHolder {
     }
 
     public void addMatcher(String id, GrayMatcher matcher) {
+        if (Objects.isNull(matcher)) {
+            return;
+        }
         if (StringTool.isBlank(id)) {
             this.DEFAULT_MATCHER = matcher;
+            return;
         }
 
         this.MATCHER_MAP.put(id, matcher);

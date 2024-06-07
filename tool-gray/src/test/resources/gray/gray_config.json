@@ -1,0 +1,17 @@
+{
+  "taskGroup": "taskGroup",
+  "taskId": "taskId",
+  "taskDesc": "任务调试",
+  "taskSwitch": true,
+  "numerator": 50,
+  "denominator": 100,
+  "whites": [
+    123456,
+    111111
+  ],
+  "blacks": [
+    222222,
+    333333
+  ],
+  "conditionExpress": "name=syx and ((age>18 and version>1.0.0) or age<10)"
+}

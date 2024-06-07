@@ -35,7 +35,7 @@ public abstract class SchedulerTaskLoaderOption extends CommonTaskLoaderOption {
     }
 
     public static abstract class Builder<T extends Builder<T>> {
-        protected long initialDelay = 0L;
+        protected long initialDelay = 5L;
         protected long period = 5L;
         protected TimeUnit timeUnit = TimeUnit.SECONDS;
 

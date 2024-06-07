@@ -1,9 +1,12 @@
 package cn.syx.toolbox.gray;
 
+import cn.syx.toolbox.base.StringTool;
 import cn.syx.toolbox.gray.domain.GrayRequest;
 import cn.syx.toolbox.gray.domain.GrayTaskConfig;
 import cn.syx.toolbox.gray.matcher.GrayMatcher;
 import cn.syx.toolbox.gray.option.GrayOption;
+
+import java.util.Objects;
 
 public class GrayTool {
 
@@ -16,6 +19,10 @@ public class GrayTool {
     }
 
     public static boolean hitGray(GrayRequest req) {
+        if (Objects.isNull(req) || StringTool.isBlank(req.identity())) {
+            return false;
+        }
+
         GrayManager grayManager = GrayManager.getInstance();
         // 查找灰度任务
         GrayTaskConfig task = grayManager.getTask(req.identity());

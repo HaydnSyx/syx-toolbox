@@ -1,7 +1,9 @@
 package cn.syx.toolbox.gray.domain;
 
 import cn.syx.toolbox.base.StringTool;
+import cn.syx.toolbox.gray.condition.Condition;
 
+import java.util.Map;
 import java.util.Set;
 
 public class GrayTaskConfig implements GrayIdentity {
@@ -24,10 +26,9 @@ public class GrayTaskConfig implements GrayIdentity {
     private Set<?> whites;
     /** 黑名单 */
     private Set<?> blacks;
-    // and and or and
-    // value:key compare target
-    /** todo 自定义场景 */
-    private Set<Object> conditions;
+    /** 自定义场景表达式 */
+    private String conditionExpress;
+    private Condition condition;
 
     @Override
     public String identity() {
@@ -35,6 +36,10 @@ public class GrayTaskConfig implements GrayIdentity {
             this.identity = String.format("%s_%s", taskGroup, taskId);
         }
         return this.identity;
+    }
+
+    public boolean open() {
+        return isTaskSwitch();
     }
 
     public String getTaskGroup() {
@@ -49,7 +54,7 @@ public class GrayTaskConfig implements GrayIdentity {
         return taskDesc;
     }
 
-    public boolean open() {
+    public boolean isTaskSwitch() {
         return taskSwitch;
     }
 
@@ -91,5 +96,29 @@ public class GrayTaskConfig implements GrayIdentity {
 
     public void setDenominator(int denominator) {
         this.denominator = denominator;
+    }
+
+    public void setWhites(Set<?> whites) {
+        this.whites = whites;
+    }
+
+    public void setBlacks(Set<?> blacks) {
+        this.blacks = blacks;
+    }
+
+    public String getConditionExpress() {
+        return conditionExpress;
+    }
+
+    public void setConditionExpress(String conditionExpress) {
+        this.conditionExpress = conditionExpress;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public void wrapperCondition(Condition condition) {
+        this.condition = condition;
     }
 }

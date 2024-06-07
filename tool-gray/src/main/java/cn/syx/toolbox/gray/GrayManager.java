@@ -18,7 +18,7 @@ public class GrayManager {
 
     private final GrayTaskHolder holder;
 
-    private volatile boolean inited;
+    private volatile boolean initialized;
 
     private GrayManager() {
         holder = GrayTaskHolder.getInstance();
@@ -29,41 +29,49 @@ public class GrayManager {
     }
 
     public void init(GrayOption option) {
-        if (inited) {
+        if (initialized) {
             return;
         }
 
         synchronized (this) {
-            if (inited) {
+            if (initialized) {
                 return;
             }
 
-            // 创建任务工厂
-            GrayFactory factory = GrayFactory.getInstance();
+            try {
+                // 创建任务工厂
+                GrayFactory factory = GrayFactory.getInstance();
 
-            // 根据配置使用工厂创建出解析器
-            GrayMatcher commonMatcher = factory.crateGrayMatcher(option.getCommonMatcherCls());
-            holder.addMatcher(null, commonMatcher);
+                // 根据配置使用工厂创建默认匹配器
+                GrayMatcher commonMatcher = factory.crateGrayMatcher(option.getCommonMatcherCls());
+                holder.addMatcher(null, commonMatcher);
 
-            // 根据配置使用工厂创建出任务加载器
-            TaskLoader taskLoader = factory.crateTaskLoader(option.getLoadTaskOption());
+                // 根据配置使用工厂创建出任务加载器
+                TaskLoader<?> taskLoader = factory.crateTaskLoader(option.getLoadTaskOption());
 
-            // 使用工厂创建出所有匹配器
-            Map<String, Class<? extends GrayMatcher>> matcherClassMap = option.getMatcherClsMap();
-            Optional.ofNullable(matcherClassMap).ifPresent(m -> m.forEach((k, v) -> {
-                if (StringTool.isBlank(k)) {
-                    return;
+                // 使用工厂创建出所有匹配器
+                Map<String, Class<? extends GrayMatcher>> matcherClassMap = option.getMatcherClsMap();
+                Optional.ofNullable(matcherClassMap).ifPresent(m -> m.forEach((k, v) -> {
+                    if (StringTool.isBlank(k)) {
+                        return;
+                    }
+
+                    GrayMatcher matcher = factory.crateGrayMatcher(v);
+                    // 任务与匹配器封装到holder中国呢
+                    holder.addMatcher(k, matcher);
+                }));
+
+                // 立即加载一次
+                if (!option.isDelayLoad()) {
+                    holder.updateTaskConfigInfo(taskLoader.loadAllTask());
                 }
 
-                GrayMatcher matcher = factory.crateGrayMatcher(v);
-                // 任务与匹配器封装到holder中国呢
-                holder.addMatcher(k, matcher);
-            }));
-
-
-            // 启动加载器（加载器内部处理推或拉的动作）
-            taskLoader.start(holder);
-            inited = true;
+                // 启动加载器（加载器内部处理推或拉的动作）
+                taskLoader.start(holder);
+                initialized = true;
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
     }
 

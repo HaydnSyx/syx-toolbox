@@ -8,9 +8,7 @@ import cn.syx.toolbox.gray.domain.GrayTaskHolder;
 import cn.syx.toolbox.gray.option.loader.FileTaskLoaderOption;
 import cn.syx.toolbox.gray.resolver.TaskResolver;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -61,7 +59,9 @@ public class FileTaskLoader extends AbstractSchedulerTaskLoader<FileTaskLoaderOp
 
             // 生成灰度任务
             GrayTaskConfig taskConfig = resolver.parseTaskContent(content);
-            taskConfig.setTaskGroup(file.getName().split("\\.")[0]);
+            if (StringTool.isBlank(taskConfig.getTaskGroup())) {
+                taskConfig.setTaskGroup(file.getName().split("\\.")[0]);
+            }
             configs.add(taskConfig);
         }
 
@@ -86,6 +86,6 @@ public class FileTaskLoader extends AbstractSchedulerTaskLoader<FileTaskLoaderOp
             holder.clearTask();
         }
 
-        holder.updateTask(configs);
+        holder.updateTaskConfigInfo(configs);
     }
 }
