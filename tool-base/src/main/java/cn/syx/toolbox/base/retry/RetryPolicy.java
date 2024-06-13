@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RetryPolicy {
 
-    /** 重试次数,含原有执行次数(默认3次,最少1次) */
+    /** 重试次数 */
     private int retryNum;
 
     /** 间隔时间 */
@@ -31,7 +31,7 @@ public class RetryPolicy {
 
     // 构造者模式
     public static class Builder {
-        private int retryNum = 3;
+        private int retryNum = 2;
         private long intervalTime = 50;
         private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
 
@@ -42,7 +42,7 @@ public class RetryPolicy {
         public Builder retryNum(int retryNum) {
             this.retryNum = retryNum;
             if (this.retryNum <= 0) {
-                this.retryNum = 1;
+                this.retryNum = 0;
             }
             return this;
         }

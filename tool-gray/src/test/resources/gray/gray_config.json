@@ -13,5 +13,5 @@
     222222,
     333333
   ],
-  "conditionExpress": "name=syx and ((age>18 and version>1.0.0) or age<10)"
+  "conditionExpress": "name=syx and ((age>=18 and version>1.0.0) or age<10)"
 }

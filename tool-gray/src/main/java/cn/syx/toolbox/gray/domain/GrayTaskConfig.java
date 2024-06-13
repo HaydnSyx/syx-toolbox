@@ -1,9 +1,8 @@
 package cn.syx.toolbox.gray.domain;
 
 import cn.syx.toolbox.base.StringTool;
-import cn.syx.toolbox.gray.condition.Condition;
+import cn.syx.toolbox.base.condition.Condition;
 
-import java.util.Map;
 import java.util.Set;
 
 public class GrayTaskConfig implements GrayIdentity {

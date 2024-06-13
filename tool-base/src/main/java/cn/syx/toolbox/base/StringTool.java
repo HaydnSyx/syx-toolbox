@@ -2,6 +2,15 @@ package cn.syx.toolbox.base;
 
 public class StringTool {
 
+    public static final String EMPTY = "";
+    public static final String BLANK = " ";
+    public static final String PLUS = "+";
+    public static final String MINUS = "-";
+    public static final String COMMA = ",";
+
+    public static final String LEFT_PARENTHESIS = "(";
+    public static final String RIGHT_PARENTHESIS = ")";
+
     private StringTool() {
         throw new UnsupportedOperationException();
     }

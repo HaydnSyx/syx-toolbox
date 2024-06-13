@@ -17,7 +17,7 @@
         <module>tool-base</module>
         <module>tool-log</module>
         <module>tool-gray</module>
-        <module>tool-proxy</module>
+        <!--<module>tool-proxy</module>-->
         <module>tool-experiment</module>
         <module>tool-strategy</module>
     </modules>

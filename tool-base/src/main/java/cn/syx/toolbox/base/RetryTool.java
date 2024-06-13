@@ -18,8 +18,7 @@ public class RetryTool {
 
     /**
      * 按照默认策略执行重试, 命中指定异常后后执行降级方法
-     * 重试次数默认3次(含原有,即1+2), 重试间隔默认50ms, 重试异常默认RetryException, 降级异常默认不处理
-     * 重试次数最小值为1
+     * 重试次数默认2次, 重试间隔默认50ms, 重试异常默认RetryException, 降级异常默认不处理
      *
      * @param retryExecute 方法执行体
      * @return T 执行结果
@@ -46,17 +45,21 @@ public class RetryTool {
             return retryExecute.get();
         }
 
-        int retryNum = policy.getRetryNum();
-        do {
+        int retryNum = policy.getRetryNum() + 1;
+        for (int i = 0; i < retryNum; i++) {
             try {
                 return retryExecute.get();
             } catch (Throwable e) {
                 // 休息一段时间再重试
                 if (policy.isRetryOnThrow(e)) {
-                    ThreadTool.sleep(policy.getIntervalTime(), policy.getTimeUnit());
+                    if (i != retryNum - 1) {
+                        ThreadTool.sleep(policy.getIntervalTime(), policy.getTimeUnit());
+                    }
+                    continue;
                 }
+
                 // 降级处理
-                else if (policy.isDegradeOnThrow(e) && Objects.nonNull(degradeExecute)) {
+                if (policy.isDegradeOnThrow(e) && Objects.nonNull(degradeExecute)) {
                     return degradeExecute.get();
                 }
                 // 抛出异常
@@ -64,7 +67,7 @@ public class RetryTool {
                     throw e;
                 }
             }
-        } while (retryNum-- > 0);
+        }
 
         return null;
     }

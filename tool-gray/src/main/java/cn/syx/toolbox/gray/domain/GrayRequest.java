@@ -61,6 +61,7 @@ public class GrayRequest implements GrayIdentity {
             request.taskId = this.taskId;
             request.key = this.key;
             request.whiteBlackKey = this.whiteBlackKey;
+            request.conditions = this.conditions;
             return request;
         }
     }

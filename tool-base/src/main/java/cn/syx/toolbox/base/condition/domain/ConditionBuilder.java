@@ -1,9 +1,9 @@
-package cn.syx.toolbox.gray.condition.domain;
+package cn.syx.toolbox.base.condition.domain;
 
-import cn.syx.toolbox.gray.condition.Condition;
-import cn.syx.toolbox.gray.condition.enums.CompareEnum;
-import cn.syx.toolbox.gray.condition.impl.GroupCondition;
-import cn.syx.toolbox.gray.condition.impl.SimpleCondition;
+import cn.syx.toolbox.base.condition.impl.SimpleCondition;
+import cn.syx.toolbox.base.condition.Condition;
+import cn.syx.toolbox.base.condition.enums.CompareEnum;
+import cn.syx.toolbox.base.condition.impl.GroupCondition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +24,7 @@ public class ConditionBuilder {
     }
 
     public ConditionBuilder or(String key, CompareEnum compareEnum, Object value) {
-        if (!isOr) {
-            // 如果前一个条件不是OR，则创建一个新的条件组
-            conditions.add(new GroupCondition());
-        }
-        GroupCondition group = (GroupCondition) conditions.get(conditions.size() - 1);
-        group.addCondition(new SimpleCondition(key, compareEnum, value));
+        conditions.add(new SimpleCondition(key, compareEnum, value));
         this.isOr = true;
         return this;
     }
@@ -41,11 +36,7 @@ public class ConditionBuilder {
     }
 
     public ConditionBuilder or(ConditionBuilder builder) {
-        if (!isOr) {
-            conditions.add(new GroupCondition());
-        }
-        GroupCondition group = (GroupCondition) conditions.get(conditions.size() - 1);
-        group.addCondition(builder.build());
+        conditions.add(builder.build());
         this.isOr = true;
         return this;
     }

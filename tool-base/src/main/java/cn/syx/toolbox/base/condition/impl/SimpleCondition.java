@@ -1,11 +1,13 @@
-package cn.syx.toolbox.gray.condition.impl;
+package cn.syx.toolbox.base.condition.impl;
 
-import cn.syx.toolbox.gray.condition.Condition;
-import cn.syx.toolbox.gray.condition.enums.CompareEnum;
+import cn.syx.toolbox.base.condition.Condition;
+import cn.syx.toolbox.base.condition.enums.CompareEnum;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class SimpleCondition implements Condition {
     private final String key;
@@ -15,7 +17,11 @@ public class SimpleCondition implements Condition {
     public SimpleCondition(String key, CompareEnum compareEnum, Object value) {
         this.key = key;
         this.compareEnum = compareEnum;
-        this.value = value;
+        if (value instanceof Collection<?> col) {
+            this.value = col.stream().map(Object::toString).collect(Collectors.toSet());
+        } else {
+            this.value = value;
+        }
     }
 
     public String getKey() {
@@ -34,6 +40,17 @@ public class SimpleCondition implements Condition {
     @Override
     public boolean evaluate(Map<String, ?> data) {
         Object val = data.get(key);
+
+        if (value instanceof Collection<?> col) {
+            if (CompareEnum.IN == compareEnum) {
+                return Objects.nonNull(val) && col.contains(val.toString());
+            }
+
+            if (CompareEnum.NOT_IN == compareEnum) {
+                return Objects.isNull(val) || !col.contains(val.toString());
+            }
+        }
+
         if (Objects.isNull(val)) {
             return false;
         }

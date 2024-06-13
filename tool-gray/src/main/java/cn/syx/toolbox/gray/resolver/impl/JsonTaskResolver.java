@@ -1,14 +1,13 @@
 package cn.syx.toolbox.gray.resolver.impl;
 
 import cn.syx.toolbox.base.StringTool;
-import cn.syx.toolbox.gray.GrayTool;
-import cn.syx.toolbox.gray.condition.Condition;
-import cn.syx.toolbox.gray.condition.ConditionTool;
+import cn.syx.toolbox.base.condition.Condition;
+import cn.syx.toolbox.base.ConditionTool;
 import cn.syx.toolbox.gray.domain.GrayTaskConfig;
 import cn.syx.toolbox.gray.resolver.TaskResolver;
 import com.alibaba.fastjson2.JSON;
 
-public class SingleJsonTaskResolver implements TaskResolver {
+public class JsonTaskResolver implements TaskResolver {
 
     @Override
     public GrayTaskConfig parseTaskContent(String content) {

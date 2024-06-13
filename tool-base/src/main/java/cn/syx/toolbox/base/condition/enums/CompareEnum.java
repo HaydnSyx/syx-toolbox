@@ -1,4 +1,4 @@
-package cn.syx.toolbox.gray.condition.enums;
+package cn.syx.toolbox.base.condition.enums;
 
 public enum CompareEnum {
 

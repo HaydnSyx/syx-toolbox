@@ -2,7 +2,7 @@ package cn.syx.toolbox.gray.option.loader;
 
 import cn.syx.toolbox.gray.loader.impl.FileTaskLoader;
 import cn.syx.toolbox.gray.resolver.TaskResolver;
-import cn.syx.toolbox.gray.resolver.impl.SingleJsonTaskResolver;
+import cn.syx.toolbox.gray.resolver.impl.JsonTaskResolver;
 
 public class FileTaskLoaderOption extends SchedulerTaskLoaderOption {
 
@@ -42,7 +42,7 @@ public class FileTaskLoaderOption extends SchedulerTaskLoaderOption {
 
         private String filePath;
         private String fileType = FILE_TYPE_JSON;
-        private TaskResolver taskResolver = new SingleJsonTaskResolver();
+        private TaskResolver taskResolver = new JsonTaskResolver();
 
         public Builder filePath(String filePath) {
             this.filePath = filePath;

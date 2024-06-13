@@ -63,4 +63,19 @@ public class GrayToolTest {
         result = GrayTool.hitGray(request);
         Assert.assertFalse(result);
     }
+
+    @Test
+    public void testHitGray2() {
+        GrayRequest request = GrayRequest.builder()
+                .taskGroup("taskGroup")
+                .taskId("taskId")
+                .key(StringGrayKey.of("tid"))
+                .conditions(Map.of(
+                        "name", "syx",
+                        "age", 18,
+                        "version", "1.0.1"
+                )).build();
+        boolean result = GrayTool.hitGray(request);
+        Assert.assertTrue(result);
+    }
 }

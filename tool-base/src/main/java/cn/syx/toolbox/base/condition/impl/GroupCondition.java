@@ -1,6 +1,6 @@
-package cn.syx.toolbox.gray.condition.impl;
+package cn.syx.toolbox.base.condition.impl;
 
-import cn.syx.toolbox.gray.condition.Condition;
+import cn.syx.toolbox.base.condition.Condition;
 
 import java.util.ArrayList;
 import java.util.List;

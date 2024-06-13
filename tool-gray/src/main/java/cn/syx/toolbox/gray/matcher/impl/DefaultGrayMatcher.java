@@ -37,6 +37,11 @@ public class DefaultGrayMatcher implements GrayMatcher {
             }
         }
 
+        // 关键值无数据则不通过
+        if (Objects.isNull(req.getKey().getData())) {
+            return false;
+        }
+
         // 如果条件不匹配则不命中，匹配按照比例判断
         if (MapTool.isNotEmpty(req.getConditions())
                 && Objects.nonNull(task.getCondition())
@@ -44,10 +49,6 @@ public class DefaultGrayMatcher implements GrayMatcher {
             return false;
         }
 
-        // 如果比例不通则不命中
-        if (Objects.isNull(req.getKey().getData())) {
-            return false;
-        }
         int value = NumberTool.abs(req.getKey().getData().hashCode()) % task.getDenominator();
         return value < task.getNumerator();
     }
