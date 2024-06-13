@@ -1,5 +1,7 @@
 package cn.syx.toolbox.gray.condition;
 
+import cn.syx.toolbox.base.ExpressionTool;
+import cn.syx.toolbox.base.StringTool;
 import cn.syx.toolbox.gray.condition.impl.GroupCondition;
 import cn.syx.toolbox.gray.condition.impl.SimpleCondition;
 import cn.syx.toolbox.gray.condition.parse.Parser;
@@ -15,7 +17,7 @@ public class ConditionTool {
     private static final String AND = " and ";
 
 
-    public static String transfer(Condition condition) {
+    public static String translate(Condition condition) {
         if (Objects.isNull(condition)) {
             return BLANK;
         }
@@ -49,6 +51,14 @@ public class ConditionTool {
     }
 
     public static Condition parse(String str) {
+        if (StringTool.isBlank(str)) {
+            return null;
+        }
+
+        if (!ExpressionTool.isParenthesesBalanced(str)) {
+            throw new RuntimeException("表达式中括号不匹配");
+        }
+
         return new Parser().parse(str);
     }
 }

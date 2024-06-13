@@ -22,7 +22,7 @@ public class Lexer {
                 case 'a':
                     if (i + 2 < input.length()
                             && (input.charAt(i + 1) == 'n' || input.charAt(i + 1) == 'N')
-                            && (input.charAt(i + 2) == 'd' || input.charAt(i + 1) == 'D')) {
+                            && (input.charAt(i + 2) == 'd' || input.charAt(i + 2) == 'D')) {
                         tokens.add(new Token(TokenEnum.AND, input.substring(i, i + 3), 3));
                         i = i + 2;
                         keyFlag = true;
