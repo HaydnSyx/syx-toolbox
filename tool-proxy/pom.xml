@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.syx.toolbox</groupId>
+        <groupId>io.github.haydnsyx</groupId>
         <artifactId>syx-toolbox</artifactId>
         <version>1.0.0</version>
     </parent>
@@ -21,7 +21,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.syx.toolbox</groupId>
+            <groupId>io.github.haydnsyx</groupId>
             <artifactId>tool-base</artifactId>
             <version>${toolbox.version}</version>
         </dependency>
@@ -37,12 +37,6 @@
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.30.2-GA</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>5.3.23</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
