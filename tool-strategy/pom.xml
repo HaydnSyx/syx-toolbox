@@ -6,15 +6,17 @@
     <parent>
         <groupId>cn.syx.toolbox</groupId>
         <artifactId>syx-toolbox</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>tool-strategy</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <name>${project.artifactId}</name>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
+    <description>海迪工具箱中的策略组件</description>
 
     <properties>
-        <toolbox.version>0.0.1-SNAPSHOT</toolbox.version>
+        <toolbox.version>1.0.0</toolbox.version>
     </properties>
 
     <dependencies>

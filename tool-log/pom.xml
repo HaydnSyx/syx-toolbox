@@ -6,17 +6,19 @@
     <parent>
         <groupId>cn.syx.toolbox</groupId>
         <artifactId>syx-toolbox</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>tool-log</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <name>${project.artifactId}</name>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
+    <description>海迪工具箱中的日志构建组件</description>
 
     <properties>
         <slf4j.version>2.0.13</slf4j.version>
         <logback.version>1.5.6</logback.version>
-        <toolbox.version>0.0.1-SNAPSHOT</toolbox.version>
+        <toolbox.version>1.0.0</toolbox.version>
     </properties>
 
     <dependencies>
