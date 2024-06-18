@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * 重试相关工具测试类
  *
@@ -39,7 +41,11 @@ public class RetryToolTest {
 
         // 含降级策略
         RetryPolicy policy = RetryPolicy.builder()
-                .degradeOnThrow(new RuntimeException())
+                .retryNum(9)
+                .intervalTime(100)
+                .timeUnit(TimeUnit.MILLISECONDS)
+                .retryOnThrow(RetryException.class)
+                .degradeOnThrow(RuntimeException.class)
                 .build();
         retryUnitTest = new RetryUnitTest();
         result = RetryTool.execute(policy, retryUnitTest::helloWordWithError, retryUnitTest::helloWordWithDegrade);
