@@ -20,6 +20,7 @@
         <module>tool-proxy</module>
         <module>tool-experiment</module>
         <module>tool-strategy</module>
+        <module>tool-test</module>
     </modules>
 
     <properties>
