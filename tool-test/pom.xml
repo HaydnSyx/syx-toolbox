@@ -19,10 +19,12 @@
         <toolbox.version>1.0.0</toolbox.version>
     </properties>
 
-    <dependency>
-        <groupId>io.github.haydnsyx</groupId>
-        <artifactId>tool-base</artifactId>
-        <version>${toolbox.version}</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.haydnsyx</groupId>
+            <artifactId>tool-base</artifactId>
+            <version>${toolbox.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
