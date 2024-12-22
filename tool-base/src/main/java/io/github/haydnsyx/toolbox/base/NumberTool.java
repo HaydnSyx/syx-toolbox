@@ -1,6 +1,7 @@
 package io.github.haydnsyx.toolbox.base;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * 数字类型相关工具
@@ -375,5 +376,45 @@ public class NumberTool {
         }
 
         return (~num & Integer.MAX_VALUE) + 1;
+    }
+
+    /**
+     * 数字加和
+     *
+     * @param nums 数字列表
+     * @return 加和结果
+     */
+    public static Integer adds(Integer... nums) {
+        if (Objects.isNull(nums)) {
+            return null;
+        }
+
+        int sum = 0;
+        for (Integer num : nums) {
+            sum += Optional.ofNullable(num).orElse(INT_ZERO);
+        }
+        return sum;
+    }
+
+    /**
+     * 数字相减
+     *
+     * @param nums 数字列表
+     * @return 相减结果
+     */
+    public static Integer minus(Integer... nums) {
+        if (Objects.isNull(nums)) {
+            return null;
+        }
+
+        if (nums.length == 1) {
+            return nums[0];
+        }
+
+        int value = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            value -= Optional.ofNullable(nums[i]).orElse(INT_ZERO);
+        }
+        return value;
     }
 }

@@ -204,4 +204,18 @@ public class NumberToolTest {
         Assertions.assertEquals(Integer.MAX_VALUE, NumberTool.abs(Integer.MIN_VALUE));
         Assertions.assertEquals(Integer.MAX_VALUE, NumberTool.abs(Integer.MAX_VALUE));
     }
+
+    @Test
+    public void testAdds() {
+        Assertions.assertNull(NumberTool.adds(null));
+        Assertions.assertEquals(10, NumberTool.adds(10));
+        Assertions.assertEquals(30, NumberTool.adds(10, 20));
+    }
+
+    @Test
+    public void testMinus() {
+        Assertions.assertNull(NumberTool.minus(null));
+        Assertions.assertEquals(10, NumberTool.minus(10));
+        Assertions.assertEquals(10, NumberTool.minus(30, 20));
+    }
 }
